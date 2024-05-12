@@ -1,0 +1,80 @@
+---
+- hosts: all
+  tasks:
+  - include_vars:
+      dir: vars
+ 
+  #- name: PLESK | enable outgoing-messages-fix-sender....
+  #  command: plesk bin mailserver --set-outgoing-messages-fix-sender true
+
+  # Settings by ini
+  ## Promos
+  - name: PLESK | disable all promos
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: promos
+      option: enabled
+      value: "false"
+  - name: PLESK | disable all aps promos
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: aps
+      option: serverAppsPromoEnabled
+      value: "off"
+  - name: PLESK | disable twitter links
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: twitter
+      option: showFollowLink
+      value: "false"
+  - name: PLESK | disable facebook links
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: facebook
+      option: showLikeLink
+      value: "off"
+  - name: PLESK | disable rating link
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: rating
+      option: enabled
+      value: "off"
+  - name: PLESK | disable tracking
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: userActivityTracking
+      option: enabled
+      value: "false"
+  - name: PLESK | disable tracking sentry.io
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: feedback
+      option: sentry.dsn
+      value: ""
+  - name: PLESK | disable - Hire a developer
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: ext-wp-toolkit
+      option: codeableIntegrationFeature
+      value: "false"
+  #[ext-monitoring]
+  #cloudIntegrationMode = hidden
+  - name: PLESK | disable monitoring 360 buttons
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: ext-monitoring
+      option: cloudIntegrationMode
+      value: hidden
+
+  - name: PLESK | disable MyPlesk Login
+    ini_file:
+      path: "{{ plesk_ini_file_path }}"
+      section: ext-social-login
+      option: myPlesk.enabled
+      value: "off"
+
+  #Restart Plesk Service after changing the config
+  - name: PLESK | restart PSA
+    service:
+      name: psa
+      state: restarted 

@@ -1,0 +1,20 @@
+---
+- hosts: all
+  tasks:
+  - include_vars:
+      dir: vars
+
+  - name: NIGNX | Make sure Plesk-NGINX is used
+    command: plesk installer --select-release-current --install-component nginx
+
+  - name: NGINX | Enable HTTP2
+    command: plesk bin http2_pref enable
+
+#maybee you want to install some extensions per default
+#  - name: PLESK EXTENSIONS install
+#    command: "plesk bin extension -i {{ item }}"
+#    with_items:
+#      - s3-backup
+#      - slave-dns-manager 
+#      - ssh-terminal
+#      - log-browser

@@ -1,0 +1,35 @@
+stages:
+- test
+- live
+
+# Test Stage
+extensions:test:
+  stage: test
+  script:
+  - ansible-playbook extensions.yml -i inventory/test.yml
+  tags:
+  - ansible
+
+settings:test:
+  stage: test
+  script:
+  - ansible-playbook settings.yml -i inventory/test.yml
+  tags:
+  - ansible
+
+#Live Stage 
+extensions:live:
+  stage: live
+  script:
+  - ansible-playbook extensions.yml -i inventory/plesk.yml
+  tags:
+  - ansible
+  when: manual
+
+settings:live:
+  stage: live
+  script:
+  - ansible-playbook settings.yml -i inventory/plesk.yml
+  tags:
+  - ansible
+  when: manual

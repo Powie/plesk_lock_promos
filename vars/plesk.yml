@@ -1,0 +1,2 @@
+# Plesk related Vars (default)
+plesk_ini_file_path: /opt/psa/admin/conf/panel.ini
