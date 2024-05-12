@@ -8,6 +8,7 @@ This playbook uses a docker runner to deploy settings to your plesk on linux ins
 
 Modify test.yml and plesk.yml in the inventory folder.  We use test.yml for our test server. Changed settings will be tested before deploying to the production stage inventory in plesk.yml.
 Make sure your gitlab runner can connect to all of your plesk servers, use ssh keys!
+Tag your runner with "ansible" or change the tag in the .gitlab-ci.yml.
 
 ## What we install
 
